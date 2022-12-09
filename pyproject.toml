@@ -1,0 +1,18 @@
+[project]
+name = "pyPropEdit_jhwilborn"
+version = "0.1"
+authors = [
+  { name="Jason Wilborn", email="jason.h.wilborn@gmail.com" },
+]
+description = "Tool to change the default audio and subtitle tracks of a group of mkv files"
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/jhwilborn/pyPropEdit"
+"Bug Tracker" = "https://github.com/jhwilborn/pyPropEdit/issues"
