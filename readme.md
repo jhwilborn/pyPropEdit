@@ -1,4 +1,10 @@
-# pyPropEdit 0.1
+# pyPropEdit 0.1.1
+
+## Version 0.1.1 changes (from 0.1)
+* Added batch processing mode
+* Added handling for hidden files on MacOS
+* Removed semicolons
+* Added exception handling for KeyboardInterrupt events and some InvalidValue events
 
 ## Description
 

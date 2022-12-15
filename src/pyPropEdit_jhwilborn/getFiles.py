@@ -16,29 +16,38 @@ class File:
 # Convert the extract json to a python dictionary, and store it in a File object
 # Return a list of the File objects
 def handle_files():
-	directory = input("Search directory: ")
-	files = list()
-	while True:
-		directory = directory.strip()
-		try:
-			files = [f for f in listdir(directory) if path.isfile(path.join(directory, f))]
-			break
-		except FileNotFoundError:
-			directory = input("Invalid path, try again: ")
+	try:
+		directory = input("Search directory: ")
+		
+		files = list()
+		while True:
+			directory = directory.strip()
+			try:
+				files = [f for f in listdir(directory) if path.isfile(path.join(directory, f))]
+				print("Getting files, please wait. This could take a moment if running over the network.")
+				break
+			except FileNotFoundError:
+				directory = input("Invalid path, try again: ")
 
-	# Remove macOS's pesky .DS_Store file if it exists
-	if '.DS_Store' in files:
-		files.remove('.DS_Store') 
-	for item in files:
-		if '.mkv' not in item.lower():
-			files.remove(item)
-	files = sorted(files) # Sort the files
-	results = list()
-	for file in files:
-		absolute_path = path.join(directory, file) # Join to create abspath
-		shell_call = subprocess.run(['mkvmerge', '-J', absolute_path], stdout=subprocess.PIPE, universal_newlines=True)
-		results_dict = json.loads(shell_call.stdout) # process json to dict
-		results.append(File(file, absolute_path, results_dict)) #append res
-
-	# print(*results, sep='\n')
-	return results
+		# Remove macOS's pesky .DS_Store file if it exists
+		if '.DS_Store' in files:
+			files.remove('.DS_Store') 
+		for item in files:
+			# Filter out non-mkv files
+			if '.mkv' not in item.lower():
+				files.remove(item)
+			# Filter out hidden files
+			if '._' in item.lower():
+				files.remove(item)
+		files = sorted(files) # Sort the files
+		results = list()
+		for file in files:
+			absolute_path = path.join(directory, file) # Join to create abspath
+			shell_call = subprocess.run(['mkvmerge', '-J', absolute_path], stdout=subprocess.PIPE, universal_newlines=True)
+			results_dict = json.loads(shell_call.stdout) # process json to dict
+			results.append(File(file, absolute_path, results_dict)) #append res
+		
+		return results
+	except KeyboardInterrupt:
+		print(" Keyboard interrupt detected, exiting")
+		exit(1)
