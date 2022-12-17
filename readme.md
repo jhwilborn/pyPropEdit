@@ -1,10 +1,8 @@
-# pyPropEdit 0.1.1
+# pyPropEdit 0.2
 
-## Version 0.1.1 changes (from 0.1)
-* Added batch processing mode
-* Added handling for hidden files on MacOS
-* Removed semicolons
-* Added exception handling for KeyboardInterrupt events and some InvalidValue events
+## Version 0.2 changes (from 0.1.1)
+* Completely rewrote core functionality to support asynchronous calls to the filesystem
+* Enter batch mode through command line option -b / --batch
 
 ## Description
 
@@ -27,14 +25,16 @@
 5. Overwrites existing defaults using a shell process with mkvpropedit.
 
 ## Limitations
- - Not most efficient way to handle transferring data between Python and the shell
- - Works on a single folder with no subdirectories
- - Only one mode of interaction
- - Limited error handling
+ - Not most efficient way to handle transferring data between Python and the shell.
+ - Works on a single folder with no subdirectories.
+ - Only one mode of interaction.
+ - Limited error handling.
+ - Relies on "shell=True" for subprocess.
 
 ## To Do
- - Robust error handling
- - Capture of subdirectories
- - "Fast" mode that lets the user enter two numbers on the same line and immediately proceeds to the next file to modify
- - Separate functions into more files
- - Remove reliance on shell=True subprocess feature
+ - Robust error handling.
+ - Capture of subdirectories.
+ - "Fast" mode that lets the user enter two numbers on the same line and immediately proceeds to the next file to modify.
+ - Remove reliance on shell=True subprocess feature.
+ - Implement tdqm
+ - If no compatible files are in the directory, prompt the user for different location
